@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mosaic Care - Typeform Processing</title>
+    <style>
+        #output-container pre {
+            width: 100%;
+            white-space: pre-line;   /* CSS3 */
+            word-wrap: break-word;   /* Internet Explorer 5.5+ */
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Mosaic Plan Creator</h1>
+        <input type="text" id="typeform-output" placeholder="Paste Typeform response here...">
+        <button id="submit-button">Submit</button>
+        <div id="loading" style="display:none">Processing...</div>
+        <div id="output-container" style="display:none">
+          <pre id="output"></pre>
+        </div>
+    </div>
+    <script>
+        document.getElementById("submit-button").addEventListener("click", async () => {
+            const typeformOutput = document.getElementById("typeform-output").value;
+
+            // Show the loading indicator
+            document.getElementById("loading").style.display = "block";
+
+            try {
+                // Send the POST request using Axios
+                const response = await axios.post("/process-typeform", { data: typeformOutput });
+
+                // Hide the loading indicator
+                document.getElementById("loading").style.display = "none";
+
+                // Update the frontend with the User Plan
+                const outputElement = document.getElementById("output");
+                outputElement.textContent = response.data.user_plan;
+                document.getElementById("output-container").style.display = "block";
+            } catch (error) {
+                console.error("Error:", error);
+                // Hide the loading indicator
+                document.getElementById("loading").style.display = "none";
+                // Display an error message (optional)
+                alert("An error occurred while processing the Typeform data.");
+            }
+        });
+    </script>
+</body>
+</html>
