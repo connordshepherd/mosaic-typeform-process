@@ -9,7 +9,7 @@ openaichat = OpenAIChat(model_name="gpt-3.5-turbo")
 BASEPLATE_API_KEY = os.environ['BASEPLATE_API_KEY']
 OPENAI_API_KEY = os.environ['OPENAI_API_KEY']
 
-# FUNCTIONS AND MORE DEFINITIONS
+# FUNCTIONS AND DEFINITIONS
 
 def query_vector_database(value):
     url = "https://app.baseplate.ai/api/datasets/81699ec2-d00f-4188-932d-00a9e89d14f6/search"
